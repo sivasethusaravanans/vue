@@ -1,25 +1,41 @@
-// main.js or index.js
-import Vue from 'vue';
-import App from './App.vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
+import Home from "@/components/profile";
+// Import other views as needed
+import About from "@/components/profile";
+import Bout from "@/components/profile";
+import Settings from "@/components/profile";
+ 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Home }, // Import and define your Home component
-  { path: '/management', component: Management }, // Import and define your Management component
-  { path: '/settings', component: Settings }, // Import and define your Settings component
-  { path: '/create', component: Create }, // Import and define your Create component
-  { path: '/read', component: Read }, // Import and define your Read component
-  { path: '/update', component: Update }, // Import and define your Update component
-  { path: '/delete', component: Delete }, // Import and define your Delete component
+  {
+    name:"HomePage",
+    path: "/home",
+    component: Home,
+  },
+  {
+    name:"AboutPage",
+    path: "/about",
+    component: About,
+  },
+  
+  {
+    name:"BoutPage",
+    path: "/bout",
+    component: Bout,
+  },
+  {
+    name:"SettingsPage",
+    path: "/settings",
+    component: Settings,
+  },
+  // Add other routes as needed
 ];
 
 const router = new VueRouter({
   routes,
 });
 
-new Vue({
-  render: (h) => h(App),
-  router,
-}).$mount('#app');
+export default router;

@@ -1,29 +1,20 @@
 <template>
   <v-app>
-   
-
-    <v-main>
-      <navbar/>
-       
-
-      <!-- <HelloWorld/> -->
-    </v-main>
+    <!-- <NavBar1 />
+    <MainContent /> -->
+    <sidebar />
   </v-app>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld';
-import navbar from './components/home';
+// import NavBar1 from "@/components/home.vue";
+// import MainContent from "@/components/MainContent.vue";
+import sidebar from "@/components/sidebar.vue";
 export default {
-  name: 'App',
-
   components: {
-    // HelloWorld,
-    navbar
+    // NavBar1,
+    sidebar,
+    // MainContent,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>

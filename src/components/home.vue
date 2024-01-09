@@ -52,26 +52,39 @@ class="hello"
         
         <v-list-group
           :value="true"
-          prepend-icon="mdi-account-circle"
-        >
+         >
           <template v-slot:activator>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>My Actions</v-list-item-title>
             
           </template>
+          <router-link to="/home">
+          <v-list-item
+              v-for="([title,icon], i) in MyActions"
+              :key="i"
+              link
+            >
+            <v-list-item-title v-text="title"></v-list-item-title>
+            <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+              
   
-          <v-list-group
-            :value="true"
-            no-action
-            sub-group
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Datas</v-list-item-title>
-              </v-list-item-content>
-            </template>
+             
+            </v-list-item>
+          </router-link>
   
-            <v-list-item
-              v-for="([title, icon], i) in admins1"
+         
+        </v-list-group>
+        
+        <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Attentence</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in Attentance"
               :key="i"
               link
             >
@@ -81,53 +94,19 @@ class="hello"
                 <v-icon v-text="icon"></v-icon>
               </v-list-item-icon>
             </v-list-item>
-          </v-list-group>
+         
   
-          <v-list-group
-            no-action
-            sub-group
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
-              </v-list-item-content>
-            </template>
-  
-            <v-list-item
-              v-for="([title, icon], i) in cruds1"
-              :key="i"
-              link
-            >
-              <v-list-item-title v-text="title"></v-list-item-title>
-  
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
+         
         </v-list-group>
         <v-list-group
           :value="true"
-          prepend-icon="mdi-account-circle"
-        >
+         >
           <template v-slot:activator>
-            <v-list-item-title>Users</v-list-item-title>
+            <v-list-item-title>Team</v-list-item-title>
             
           </template>
-  
-          <v-list-group
-            :value="true"
-            no-action
-            sub-group
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
-              </v-list-item-content>
-            </template>
-  
-            <v-list-item
-              v-for="([title, icon], i) in admins"
+          <v-list-item
+              v-for="([title, icon], i) in Teams"
               :key="i"
               link
             >
@@ -137,31 +116,183 @@ class="hello"
                 <v-icon v-text="icon"></v-icon>
               </v-list-item-icon>
             </v-list-item>
-          </v-list-group>
+         
   
-          <v-list-group
-            no-action
-            sub-group
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
-              </v-list-item-content>
-            </template>
-  
-            <v-list-item
-              v-for="([title, icon], i) in cruds"
-              :key="i"
-              link
-            >
-              <v-list-item-title v-text="title"></v-list-item-title>
-  
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
+         
         </v-list-group>
+        <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Teams</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in Reports2"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Reports</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in BusinessSetup"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Bussiness Setup</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in MaintenenceSetup"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>MAintanence Setup</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in People"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>People</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in Inventory"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Inventory</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in Tickets"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>Tickets</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in Reports"
+              :key="i"
+              link
+               
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+            <v-list-group
+          :value="true"
+         >
+          <template v-slot:activator>
+            <v-list-item-title>SLA</v-list-item-title>
+            
+          </template>
+          <v-list-item
+              v-for="([title, icon], i) in SLA"
+              :key="i"
+              link
+            >
+              <v-list-item-title v-text="title"></v-list-item-title>
+  
+              <v-list-item-icon>
+                <v-icon v-text="icon"></v-icon>
+              </v-list-item-icon>
+            </v-list-item>
+         
+  
+         
+        </v-list-group>
+         
+        </v-list-group>
+         
+        </v-list-group>
+         
+        </v-list-group>
+         
+        </v-list-group>
+         
+        </v-list-group>
+         
+        </v-list-group>
+  
+         
+        </v-list-group>
+       
+        
       </v-list>
       </v-navigation-drawer>
   
@@ -184,6 +315,9 @@ padding: 10px
   .v-toolbar-title{
     color: black;
   }
+.title{
+  padding: 30px;
+}
   .v-app-bar{
     background-color: whi;
     color: white;
@@ -193,13 +327,72 @@ padding: 10px
   export default {
     name: "NavBar1",
     data: () => ({
-      admins1: [
-        ['Office', 'mdi-account-multiple-outline'],
-        ['All employees', 'mdi-cog-outline'],
+      MyActions: [
+        ['  My work orders', 'mdi-account-multiple-outline'],
+        ['  My assigned tickets', 'mdi-cog-outline'],
+        ['  My pending approvals', 'mdi-account-multiple-outline'],
+        ['  My store tasks', 'mdi-cog-outline'],
       ],
-        admins: [
-        ['Management', 'mdi-account-multiple-outline'],
-        ['Settings', 'mdi-cog-outline'],
+      Reports2: [
+        ['My Reports', 'mdi-account-multiple-outline'],
+        ['My Store Stocks', 'mdi-cog-outline'],
+      ],
+      BusinessSetup: [
+        ['Zone', 'mdi-account-multiple-outline'],
+        ['Site', 'mdi-cog-outline'],
+        ['Asset Categories', 'mdi-account-multiple-outline'],
+        ['LOcation', 'mdi-cog-outline'],
+        ['Equipment', 'mdi-account-multiple-outline'],
+        ['IOT Rules Settings', 'mdi-cog-outline'],
+        ['Services', 'mdi-cog-outline'],
+      ],
+      MaintenenceSetup: [
+        ['Tasks', 'mdi-account-multiple-outline'],
+        ['Tasks lists', 'mdi-cog-outline'],
+        ['Checks', 'mdi-account-multiple-outline'],
+        ['Check Lists', 'mdi-cog-outline'],
+        ['Work Order Template', 'mdi-account-multiple-outline'],
+        ['Work Order Scheduler', 'mdi-cog-outline'] 
+      ],
+      People: [
+        ['Organisation Unit', 'mdi-account-multiple-outline'],
+        ['Designation', 'mdi-cog-outline'],
+        ['Employee', 'mdi-account-multiple-outline'],
+        ['User Roles', 'mdi-cog-outline'],
+        ['Shifts', 'mdi-account-multiple-outline'],
+        ['Rostering', 'mdi-cog-outline'] ,
+        ['Teams', 'mdi-cog-outline'] 
+      ],
+      Inventory: [
+        ['UDM and Store Settings', 'mdi-account-multiple-outline'],
+        ['Items', 'mdi-cog-outline'],
+        ['Suppliers', 'mdi-account-multiple-outline'],
+      ],
+      Tickets: [
+        ['Ticket Categories', 'mdi-account-multiple-outline'],
+        ['Category Helpdesk', 'mdi-cog-outline'],
+      ],
+      Reports: [
+        ['Asset', 'mdi-account-multiple-outline'],
+        ['Maintenence', 'mdi-cog-outline'],
+        ['Ticket', 'mdi-account-multiple-outline'],
+        ['Inventory', 'mdi-cog-outline'],
+        ['People', 'mdi-account-multiple-outline'],
+        ['PPM Planner', 'mdi-cog-outline'] ,
+        ['Teams', 'mdi-cog-outline'] ,
+        ['Workorder Execution', 'mdi-cog-outline']  
+      ],
+      SLA: [
+        ['Service Level Agrement', 'mdi-account-multiple-outline'],
+        ['SLA Reports', 'mdi-cog-outline'],
+      ],
+      Teams: [
+        ['My Teams', 'mdi-account-multiple-outline'],
+        ['Team Attentence', 'mdi-cog-outline'],
+      ],
+      Attentance: [
+        ['My Attentence', 'mdi-account-multiple-outline'],
+        ['My Schedule', 'mdi-cog-outline'],
       ],
       cruds: [
         ['Create', 'mdi-plus-outline'],
