@@ -1,182 +1,204 @@
 <template>
-    <v-app>
-      <v-container>
-        <v-tabs v-model="tab" background-color="#fffde7">
-          <v-tab :value="'single'">Single site</v-tab>
-          <v-tab :value="'multi'">Multi site</v-tab>
-        </v-tabs>
-        <v-row v-if="tab === 'single'">
-          <v-col>
-            <v-menu
-              v-model="menu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="selectedItem"
-                  label="Select Item"
-                  readonly
-                  @click="menu = !menu"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-list>
-                <v-list-item
-                  v-for="item in items"
-                  :key="item.id"
-                  @click="selectItem(item)"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.text }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </v-col>
-        </v-row>
-  
-        <v-row v-else>
-          <v-col>
-            <v-checkbox
-              v-for="item in items"
-              :key="item.id"
-              v-model="selectedItems"
-              :label="item.text"
-              :value="item.value"
-            ></v-checkbox>
-            <v-btn @click="applySelection">Apply</v-btn>
-          </v-col>
-        </v-row>
-  
-        <v-row v-if="filteredData.length > 0">
-          <v-col
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-            v-for="(dataItem, index) in filteredData"
-            :key="index"
-          >
-            <v-card>
-              <v-card-title>{{ dataItem.name }}</v-card-title>
-              <v-card-text>
-                <div>Temperature: {{ kelvinToCelsius(dataItem.main.temp) }}</div>
-                <div>Description: {{ dataItem.weather[0].description }}</div>
+  <div>
+    <v-container
+      style="
+        background-color: rgb(225, 225, 212);
+        padding: 20px;
+        justify-content: space-around;
+      "
+    >
+      <v-v-column>
+        <h1>Dashboard</h1>
+        <v-container></v-container>
+        <h5>Select a title for deatiled analysis</h5>
+      </v-v-column>
+    </v-container>
+    <v-tabs v-model="tab">
+      <v-tab v-for="(tabItem, index) in tabs" :key="index">
+        {{ tabItem.name }}
+      </v-tab>
+      <v-tab-item v-for="(tabItem, index) in tabs" :key="index">
+        <v-card v-if="tabItem.name === 'Single Select'">
+          <v-col cols="12" sm="12" md="6" lg="6">
+            <v-select
+              v-model="selectedSingleCity"
+              :items="cityNames"
+              label="Select a City"
+              @change="fetchWeatherForCity(selectedSingleCity)"
+            ></v-select>
+            <v-card v-if="selectedSingleCity !== null">
+              <v-card-title>{{ selectedSingleCity }}</v-card-title>
+              <v-card-text
+                v-if="isWeatherDataComplete(selectedSingleCityWeather)"
+              >
+                <p>
+                  Temperature:
+                  {{
+                    selectedSingleCityWeather.main &&
+                    selectedSingleCityWeather.main.temp
+                  }}°C
+                </p>
+                <p>
+                  Description:
+                  {{
+                    selectedSingleCityWeather.weather &&
+                    selectedSingleCityWeather.weather[0].description
+                  }}
+                </p>
+                <!-- Display other weather information as needed -->
+              </v-card-text>
+              <v-card-text v-else>
+                <p>Weather data incomplete or unavailable.</p>
               </v-card-text>
             </v-card>
+            <v-card v-else>
+              <p v-if="selectedSingleCity !== null">Weather data loading...</p>
+              <p v-else>No city selected.</p>
+            </v-card>
           </v-col>
-        </v-row>
-        <v-row v-else>
-          <v-col>
-            <div>No data available for the selected option.</div>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-app>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        tab: null,
-        menu: false,
-        selectedItem: null,
-        selectedItems: [],
-        items: [
-          { id: 0, text: 'Chennai', value: 'chennai' },
-          { id: 1, text: 'Bengaluru', value: 'bengaluru' },
-          { id: 2, text: 'Delhi', value: 'delhi' },
-        ],
-        optionData: {
-          chennai: [],
-          engaluru: [],
-          delhi: [],
-        },
-        filteredData: [],
-      };
+        </v-card>
+
+        <v-card v-else-if="tabItem.name === 'Multiple Select'">
+          <v-container>
+            <v-select
+              v-model="selectedMultipleCities"
+              :items="cityNames"
+              label="Select Cities"
+              multiple
+              :style="{ width: '50%' }"
+            ></v-select>
+            <v-row v-if="selectedMultipleCities.length > 0">
+              <v-col
+                v-for="(city, index) in selectedMultipleCities"
+                :key="index"
+                cols="12"
+                sm="12"
+                md="6"
+                lg="6"
+              >
+                <v-card
+                  v-if="getWeatherData(city)"
+                  class="single-select-card-style"
+                >
+                  <v-card-title>{{ city }}</v-card-title>
+                  <v-card-text
+                    v-if="isWeatherDataComplete(getWeatherData(city))"
+                  >
+                    <p>
+                      Temperature:
+                      {{
+                        getWeatherData(city).main &&
+                        getWeatherData(city).main.temp
+                      }}°C
+                    </p>
+                    <p>
+                      Description:
+                      {{
+                        getWeatherData(city).weather &&
+                        getWeatherData(city).weather[0].description
+                      }}
+                    </p>
+                    <!-- Display other weather information as needed -->
+                  </v-card-text>
+                  <v-card-text v-else>
+                    <p>Weather data incomplete or unavailable.</p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+            <!-- </v-col> -->
+          </v-container>
+        </v-card>
+      </v-tab-item>
+    </v-tabs>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      tabs: [{ name: 'Single Select' }, { name: 'Multiple Select' }],
+      cities: [
+        { name: 'London', weatherData: null },
+        { name: 'New York', weatherData: null },
+        // Add more cities as needed
+      ],
+      apiKey: '2c72f5e663805f54c9e77f860f692b64', // Your OpenWeatherMap API key
+      tab: null,
+      selectedSingleCity: null,
+      selectedSingleCityWeather: null,
+      selectedMultipleCities: [],
+    };
+  },
+  computed: {
+    cityNames() {
+      return this.cities.map((city) => city.name);
     },
-    mounted() {
-      this.tab = 'single'; // Set the default tab to 'single'
-      this.selectedItem = this.items[0].value;
-      this.filteredData = this.optionData[this.items[0].value] || [];
-      this.fetchWeatherData(this.items[0].value); // Fetch weather data for the default city
+  },
+  watch: {
+    selectedMultipleCities: {
+      handler(newVal) {
+        // Fetch weather data for all selected cities
+        newVal.forEach((city) => {
+          this.fetchWeatherForCity(city);
+        });
+      },
+      deep: true,
     },
-    methods: {
-      selectItem(item) {
-        if (this.tab === 'single') {
-          this.selectedItem = item.value;
-          this.menu = false; // Close the dropdown after selection
-          this.filteredData = this.optionData[item.value] || [];
-          this.fetchWeatherData(item.value); // Fetch weather data when a city is selected
+    selectedSingleCity: {
+      handler(newVal) {
+        if (newVal) {
+          this.fetchWeatherForCity(newVal);
         } else {
-          // Handle multi-select logic for the 'multi' tab
-          const index = this.selectedItems.indexOf(item.value);
-          if (index === -1) {
-            // If the item is not already selected, add it to the selected items
-            this.selectedItems.push(item.value);
-          } else {
-            // If the item is already selected, remove it from the selected items
-            this.selectedItems.splice(index, 1);
-          }
-          // Update the filtered data based on selected items
-          this.filteredData = this.selectedItems.reduce((acc, value) => {
-            return acc.concat(this.optionData[value] || []);
-          }, []);
+          this.selectedSingleCityWeather = null;
         }
       },
-  
-      async fetchWeatherData(city) {
+    },
+  },
+  methods: {
+    async fetchWeatherForCity(city) {
+      const selectedCity = this.cities.find((c) => c.name === city);
+      if (selectedCity && !selectedCity.weatherData) {
         try {
-          const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2c72f5e663805f54c9e77f860f692b64`
+          const response = await axios.get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity.name}&appid=${this.apiKey}`
           );
-          const data = await response.json();
-  
-          if (data && data.cod === 200) {
-            this.optionData[city] = [data]; // Store the weather data for the city
-  
-            if (this.tab === 'single' && this.selectedItem === city) {
-              this.filteredData = this.optionData[city];
+          if (
+            response.data &&
+            response.data.weather &&
+            response.data.weather.length > 0
+          ) {
+            selectedCity.weatherData = response.data;
+
+            if (this.selectedSingleCity === selectedCity.name) {
+              this.selectedSingleCityWeather = selectedCity.weatherData;
             }
           } else {
-            console.error('Error fetching weather data:', data.message);
+            console.error('Incomplete weather data received:', response.data);
           }
         } catch (error) {
           console.error('Error fetching weather data:', error);
         }
-      },
-      kelvinToCelsius(kelvin) {
-        return (kelvin - 273.15).toFixed(2);
-      },
-      applySelection() {
-        this.selectedItem = this.selectedItems
-          .map((value) => this.items.find((item) => item.value === value).value)
-          .join(', ');
-        this.menu = false; // Close the dropdown after selection
-        this.filteredData = this.selectedItems.reduce((acc, value) => {
-          return acc.concat(this.optionData[value] || []);
-        }, []);
-      },
+      } else {
+        this.selectedSingleCityWeather = selectedCity.weatherData;
+      }
     },
-    watch: {
-      tab(newTab) {
-        if (newTab === 'single') {
-          this.filteredData = this.optionData[this.selectedItem] || [];
-        } else {
-          this.filteredData = this.selectedItems.reduce((acc, value) => {
-            return acc.concat(this.optionData[value] || []);
-          }, []);
-        }
-      },
-      selectedItem(newItem, oldItem) {
-        if (this.tab === 'single' && newItem !== oldItem) {
-          this.filteredData = this.optionData[newItem] || [];
-          this.fetchWeatherData(newItem); // Fetch weather data for the newly selected city
-        }
-      },
+
+    getWeatherData(city) {
+      return this.cities.find((c) => c.name === city)?.weatherData || null;
     },
-  };
-  </script>
+
+    isWeatherDataComplete(weatherData) {
+      return (
+        weatherData &&
+        weatherData.weather &&
+        Array.isArray(weatherData.weather) &&
+        weatherData.weather.length > 0
+      );
+    },
+  },
+};
+</script>
