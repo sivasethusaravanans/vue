@@ -6,6 +6,9 @@ import router from './router';
 Vue.config.productionTip = false;
 
 new Vue({
+  theme:{
+    defaultTheme : "white"
+  },
   vuetify,
   router, // Add this line to use the router
   render: (h) => h(App),

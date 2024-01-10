@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Home from "@/components/profile";
+import Home from "@/components/Dashboard";
 // Import other views as needed
 import About from "@/components/profile";
 import Bout from "@/components/profile";

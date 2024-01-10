@@ -1,4 +1,4 @@
-<template>
+<template theme="white">
   <v-app>
     <!-- <NavBar1 />
     <MainContent /> -->

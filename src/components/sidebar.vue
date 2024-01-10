@@ -6,19 +6,109 @@
     <div :class="{ 'sidebar-closed': isSidebarClosed }" class="sidebar">
       <!-- Your sidebar content goes here -->
       <div>
-        <h1>wowTalkies</h1>
+        <h1 class="heading">wowTalkies</h1>
+        <h4 class="ndheading">MY INCONN</h4>
       </div>
       <div>
         <div>
           <div>
-            <v-list-group :value="true">
+            <v-list-group :value="false" class="my-actions-group"     append-icon-color="red">
               <template v-slot:activator>
-                <v-list-item-title>My Actions</v-list-item-title>
+              <v-list-item-title class="custom-list-item"  style="color: white;">My Actions</v-list-item-title>
               </template>
 
               <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
                 <router-link :to="route">
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">Attendance</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">Teams</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">Reports</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+<h4>CONFIGARATION</h4>
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
                 </router-link>
                 <v-list-item-icon>
                   <v-icon v-text="icon"></v-icon>
@@ -26,14 +116,14 @@
               </v-list-item>
             </v-list-group>
 
-            <v-list-group :value="true">
+            <v-list-group :value="false">
               <template v-slot:activator>
-                <v-list-item-title>Attendance</v-list-item-title>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
               </template>
 
               <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
                 <router-link :to="route">
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
                 </router-link>
                 <v-list-item-icon>
                   <v-icon v-text="icon"></v-icon>
@@ -41,14 +131,14 @@
               </v-list-item>
             </v-list-group>
 
-            <v-list-group :value="true">
+            <v-list-group :value="false">
               <template v-slot:activator>
-                <v-list-item-title>Teams</v-list-item-title>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
               </template>
 
               <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
                 <router-link :to="route">
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
                 </router-link>
                 <v-list-item-icon>
                   <v-icon v-text="icon"></v-icon>
@@ -56,14 +146,14 @@
               </v-list-item>
             </v-list-group>
 
-            <v-list-group :value="true">
+            <v-list-group :value="false">
               <template v-slot:activator>
-                <v-list-item-title>Reports</v-list-item-title>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
               </template>
 
               <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
                 <router-link :to="route">
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
                 </router-link>
                 <v-list-item-icon>
                   <v-icon v-text="icon"></v-icon>
@@ -71,17 +161,47 @@
               </v-list-item>
             </v-list-group>
 
-            <v-list-group :value="true">
+            <v-list-group :value="false">
               <template v-slot:activator>
-                <v-list-item-title>My Actions</v-list-item-title>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
               </template>
 
               <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
                 <router-link :to="route">
-                  <v-list-item-title v-text="title"></v-list-item-title>
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
                 </router-link>
                 <v-list-item-icon>
                   <v-icon v-text="icon"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon"></v-icon>
+                </v-list-item-icon>
+              </v-list-item>
+            </v-list-group>
+
+            <v-list-group :value="false">
+              <template v-slot:activator>
+                <v-list-item-title style="color: white;">My Actions</v-list-item-title>
+              </template>
+
+              <v-list-item v-for="([title, icon, route], i) in MyActions" :key="i" link>
+                <router-link :to="route">
+                  <v-list-item-title v-text="title" style="color: white;"></v-list-item-title>
+                </router-link>
+                <v-list-item-icon>
+                  <v-icon v-text="icon" style="color: white;"></v-icon>
                 </v-list-item-icon>
               </v-list-item>
             </v-list-group>
@@ -95,7 +215,9 @@
       <!-- Appbar -->
       <div class="appbar">
         <!-- Your appbar content goes here -->
-        <button @click="toggleSidebar">Toggle Sidebar</button>
+        <button @click="toggleSidebar" >
+    <v-icon color="white">mdi-menu</v-icon> <!-- Replace "mdi-menu" with your desired MDI icon -->
+  </button>
 
         <input v-model="searchQuery" placeholder="Search" @input="performSearch" />
 
@@ -109,9 +231,9 @@
     </div>
   </div>
 </template>
-
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script>
-export default {
+ export default {
   name: "YourComponent",
 
   data: () => ({
@@ -221,65 +343,64 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   display: flex;
 }
 
+.append-icon {
+  color: white !important;
+}
+.v-list-item-title {
+  color: white;
+}
+.my-actions-group{
+icon-color:white;
+  color: white !important;
+}
+/* Customize the active link style */
+.router-link-active {
+  text-decoration: none;
+}
+.ndheading{
+  padding-left: 10px;
+  padding-bottom:10px ;
+}
+.heading {
+  color: orangered;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+.custom-list-item {
+  color: white !important;
+  icon-color: white
+}
+
 .sidebar {
-  width: 200px;
+  width: 300px;
   background-color: #333;
   color: white;
-  display: inline-block; /* Display links in a single line */
-  /* transition: width 0.3s ease, visibility 0.3s ease;  */
-  /* Add transition for visibility */
+  display: inline-block;
 }
-.custom-card {
-  background-color: black;
-  /* Add any other styles you want for the custom card */
+.v-list-group__header__icon--clickable {
+  color: white !important;
+}
+.my-actions-group .v-list-group__header .v-icon {
+  color: white !important;
+}
+ 
+h4{
+  padding: 10px;
 }
 h5 {
   padding: 20px;
 }
-.black-text {
-  color: black !important;
+h1{
+  padding-left: 10px;
 }
-
-.black-background {
-  background-color: black !important;
-}
-.sidebar router-link {
-  display: block; /* Display links as block-level elements (one below the other) */
-  margin-bottom: 10px; /* Add bottom margin to space out the links */
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  height: 100%;
-}
-
-.sidebar router-link:hover {
-  text-decoration: underline; /* Underline the link on hover */
-}
-.sidebar-closed {
-  width: 0;
-  visibility: hidden;
-  overflow: hidden;
-  display: none; /* Hide the sidebar completely */
-}
-
-.main-content {
-  flex: 1;
-  transition: margin-left 0.3s ease; /* Add a transition effect for a smoother animation */
-}
-
-.full-width {
-  margin-left: 0;
-}
-
 .appbar {
   background-color: #555;
   color: white;
-
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -290,9 +411,8 @@ h5 {
   flex: 1;
 }
 
-/* Add styling for the toggle button */
 .appbar button {
-  background-color: black;
+  background-color: transparent;
   color: white;
   padding: 5px 10px;
   cursor: pointer;
@@ -300,8 +420,45 @@ h5 {
   outline: none;
   margin-left: 10px;
 }
+
+/* Add styling for the toggle button */
+.appbar button:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  transition: margin-left 0.3s ease;
+}
+
+.full-width {
+  margin-left: 0;
+}
+
+.sidebar router-link {
+  display: block;
+  margin-bottom: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  height: 100%;
+}
+
+/* Remove underline on hover for router-link */
+.sidebar router-link:hover {
+  text-decoration: none;
+}
+
+.sidebar-closed {
+  width: 0;
+  visibility: hidden;
+  overflow: hidden;
+  display: none;
+}
+
 .mx-auto {
   background-color: black;
   color: black;
 }
 </style>
+
