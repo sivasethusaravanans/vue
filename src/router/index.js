@@ -6,7 +6,7 @@ import Home from "@/components/Dashboard";
 import About from "@/components/profile";
 import Bout from "@/components/profile";
 import Settings from "@/components/profile";
- 
+import Reports from "@/components/Reports";
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,7 +20,11 @@ const routes = [
     path: "/about",
     component: About,
   },
-  
+  {
+    name:"Reports",
+    path: "/reports",
+    component: Reports,
+  },
   {
     name:"BoutPage",
     path: "/bout",

@@ -378,7 +378,7 @@ Dashboard:[["Dashboard","mdi-account-multiple-outline","/home"]],
       ["Category Helpdesk", "mdi-cog-outline", "/home"],
     ],
     Reports: [
-      ["Asset", "mdi-account-multiple-outline", "/home"],
+      ["Asset", "mdi-account-multiple-outline", "/reports"],
       ["Maintenence", "mdi-cog-outline", "/home"],
       ["Ticket", "mdi-account-multiple-outline", "/home"],
       ["Inventory", "mdi-cog-outline", "/home"],
