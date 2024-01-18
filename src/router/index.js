@@ -7,6 +7,7 @@ import About from "@/components/profile";
 import Bout from "@/components/profile";
 import Settings from "@/components/profile";
 import Reports from "@/components/Reports";
+import WeatherChart from "@/components/whether";
 Vue.use(VueRouter);
 
 const routes = [
@@ -14,6 +15,10 @@ const routes = [
     name:"HomePage",
     path: "/home",
     component: Home,
+  }, {
+    name:"TablePage",
+    path: "/empty",
+    component: WeatherChart,
   },
   {
     name:"AboutPage",
