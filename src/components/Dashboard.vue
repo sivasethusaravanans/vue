@@ -1,4 +1,3 @@
- 
 <template>
   <div>
     <v-container
@@ -116,11 +115,7 @@
                   <v-card-text v-else>
                     <p>Weather data incomplete or unavailable.</p>
                   </v-card-text>
-                 
                 </v-card>
-                 <v-card>
-                    <canvas :ref="'myChart' + index" width="40" height="40"></canvas>
-                  </v-card>
               </v-col>
               
             </v-row>
@@ -181,6 +176,15 @@ export default {
   },
   methods: {
     renderChart(weatherData, chartIndex) {
+    
+const chartId = 'myChart' + chartIndex;
+    const canvas = this.$refs[chartId][0];
+
+    // Destroy existing chart if it exists
+    const existingChart = canvas.chart;
+    if (existingChart) {
+      existingChart.destroy();
+    }
   const numberOfDays = 20;
   const hoursPerDay = 24;
   const totalHours = weatherData.hourly.time.length;
@@ -210,55 +214,61 @@ export default {
     ],
   };
 
-  const ctx = this.$refs['myChart' + chartIndex][0].getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-  });
+const ctx = canvas.getContext('2d');
+    const newChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+    });
+
+    // Attach the newly created chart to the canvas for later reference
+    canvas.chart = newChart;
+  },
+
+
+
+ async fetchWeatherForCity(city, chartIndex) {
+  const selectedCity = this.cities.find((c) => c.name === city);
+  let response2 = null;
+
+  try {
+    if (selectedCity && !selectedCity.weatherData) {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity.name}&appid=${this.apiKey}`
+      );
+
+      response2 = await axios.get(
+        `https://api.open-meteo.com/v1/forecast?latitude=${response.data.coord.lat}&longitude=${response.data.coord.lon}&past_days=20&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`
+      );
+
+      if (
+        response.data &&
+        response.data.weather &&
+        response.data.weather.length > 0
+      ) {
+        selectedCity.weatherData = response.data;
+
+        if (this.selectedSingleCity === selectedCity.name) {
+          this.selectedSingleCityWeather = selectedCity.weatherData;
+          this.$nextTick(() => this.renderChart(response2.data, 0));
+        }
+      } else {
+        console.error('Incomplete weather data received:', response.data);
+      }
+
+    } else {
+      this.selectedSingleCityWeather = selectedCity.weatherData;
+      this.$nextTick(() => this.renderChart(response2.data, chartIndex));
+    }
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+  }
 },
 
 
-
-    async fetchWeatherForCity(city, chartIndex) {
-      const selectedCity = this.cities.find((c) => c.name === city);
-      let response2;
-
-      if (selectedCity && !selectedCity.weatherData) {
-        try {
-          const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity.name}&appid=${this.apiKey}`
-          );
-
-          response2 = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${response.data.coord.lat}&longitude=${response.data.coord.lon}&past_days=20&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`
-          );
-
-          if (
-            response.data &&
-            response.data.weather &&
-            response.data.weather.length > 0
-          ) {
-            selectedCity.weatherData = response.data;
-
-            if (this.selectedSingleCity === selectedCity.name) {
-              this.selectedSingleCityWeather = selectedCity.weatherData;
-              this.$nextTick(() => this.renderChart(response2.data, 0));
-            }
-          } else {
-            console.error('Incomplete weather data received:', response.data);
-          }
-        } catch (error) {
-          console.error('Error fetching weather data:', error);
-        }
-      } else {
-        this.selectedSingleCityWeather = selectedCity.weatherData;
-        this.$nextTick(() => this.renderChart(response2.data, chartIndex));
-      }
-    },
 
     getWeatherData(city) {
       return this.cities.find((c) => c.name === city)?.weatherData || null;
