@@ -7,7 +7,7 @@ import About from "@/components/profile";
 import Bout from "@/components/profile";
 import Settings from "@/components/profile";
 import Reports from "@/components/Reports";
-import WeatherChart from "@/components/whether";
+import WeatherChart from "@/components/empty";
 Vue.use(VueRouter);
 
 const routes = [
