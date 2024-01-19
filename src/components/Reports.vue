@@ -213,11 +213,19 @@ export default {
       this.fetchData();
     },
     downloadData() {
-      if (this.selectedDownloadFormat === "csv" && this.responseData.length > 0) {
-        this.downloadCSV();
-      } else if (this.selectedDownloadFormat === "pdf" && this.responseData.length > 0) {
-        this.downloadPDF();
-      }
+      if (
+  this.selectedDownloadFormat &&
+  this.selectedDownloadFormat === "csv" &&
+  this.responseData.txData.length > 0
+) {
+  this.downloadCSV();
+} else if (
+  this.selectedDownloadFormat &&
+  this.selectedDownloadFormat === "pdf" &&
+  this.responseData.txData.length > 0
+) {
+  this.downloadPDF();
+}
     },
 
     formatDateForApi(dateString) {
